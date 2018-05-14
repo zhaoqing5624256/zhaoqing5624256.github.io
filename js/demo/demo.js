@@ -13,7 +13,7 @@
 
 $(function () {
 
-  var contractAddress = 'n1iqGYDKzs6DmVw7LLRz8tkbaVRXF6y1b94'
+  var contractAddress = 'n1s8VRQ8u7hUDVeLneohE1h2qVq8QtASk56';
 
   'use strict'
   $('#autocomplete').hide()
