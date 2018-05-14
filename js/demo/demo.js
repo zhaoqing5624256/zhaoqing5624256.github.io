@@ -13,10 +13,12 @@
 
 $(function () {
 
-  var contractAddress = 'n1s8VRQ8u7hUDVeLneohE1h2qVq8QtASk56';
+  var contractAddress = 'n1sSjDSnqXV4XZdbfmLPKdj9k2nNwoSZWFo';
+
+  var hash = 'f19c42452ac6cc8ac75a71921178a23311ea7cbac4b337bf1a4acb7bd48a7497';
 
   'use strict'
-  $('#autocomplete').hide()
+  $('#autocomplete').hide();
 
   var carouselLinks = []
   var tanMuIntervalArray = []
