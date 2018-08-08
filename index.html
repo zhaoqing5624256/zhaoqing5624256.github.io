@@ -1,94 +1,328 @@
-<!DOCTYPE HTML>
-<!--
-/*
- * blueimp Gallery Demo
- * https://github.com/blueimp/Gallery
- *
- * Copyright 2013, Sebastian Tschan
- * https://blueimp.net
- *
- * Licensed under the MIT license:
- * https://opensource.org/licenses/MIT
- */
--->
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
+    <title>whether_point_in_3d_model</title>
     <meta charset="utf-8">
-    <title>PayPal Ask</title>
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
-    <link type="text/css" href="css/custom-theme/jquery-ui-1.10.0.custom.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="css/main.css">
-
-    <link rel="stylesheet" href="css/blueimp-gallery.css">
-    <link rel="stylesheet" href="css/dark.css">
-
-    <link rel="stylesheet" href="css/blueimp-gallery-indicator.css">
-    <link rel="stylesheet" href="css/demo/demo.css">
-
-    <script src="assets/js/jquery-1.9.0.min.js" type="text/javascript"></script>
-    <script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
-    <script src="assets/js/jquery-ui-1.10.0.custom.min.js" type="text/javascript"></script>
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <style type="text/css">
+        html, body {
+            margin: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
 </head>
 
 <body>
-    <section class="ciu-search">
-        <div class="ciu-search__inner js-search active">
-            <a href="#tables" class="ciu-search__label">Wish for </a>
-            <input class="ciu-search__input" id="tags">
-            ?
-        </div>
-    </section>
-
-        <div class="Ask">
-            <br/>
-            <section id="autocomplete" style="display: none">
-                <div class="page-header">
-                    <button id="addTag" class="btn btn-warning">Add wish </button>&nbsp;&nbsp;:
-                    <input id = "tag" style="background: transparent;color:#ffffff;width: 45%">(If multiple wishes, separate by ',')
-                </div>
-            </section>
-            <!-- The Gallery as inline carousel, can be positioned anywhere on the page -->
-            <div id="blueimp-image-carousel" class="blueimp-gallery blueimp-gallery-carousel">
-                <div class="slides"></div>
-                <h3 class="title"></h3>
-                <a class="prev">‹</a>
-                <a class="next">›</a>
-                <a class="play-pause"></a>
-                <div class="tanMu">
-                </div>
-            </div>
-
-            <br/>
-            <input id="ntId" style="display: none;">
-            </input>
-        </div>
+<script src="./three.min.js"></script>
+<script src="./OrbitControls.js"></script>
+<script src="./Reflector.js"></script>
 
 <script>
-  // Autocomplete
+    "use strict";
 
-  function httpGet(theUrl) {
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("GET", theUrl, false); // false for synchronous request
-    xmlHttp.send(null);
-    return xmlHttp.responseText;
-  }
+    var renderer, scene, camera, stats;
 
-  // var tags = httpGet("http://10.225.224.165:8000/rule_graph_analysis/ppask/tags");
-  // var availableTags = JSON.parse(tags)["tags"];
-  // console.log(availableTags.length);
-  // $("#tags").autocomplete({
-  //   source: availableTags
-  // });
+    var particles, uniforms, buffer_geometry, mesh;
+    var sphere_geometry, sphere_mesh, sphere_material;
+
+    var raycaster, intersects;
+    var mouse, INTERSECTED;
+
+
+    { // init
+
+
+        scene = new THREE.Scene();
+        scene.background = new THREE.Color( 0x1478FA);
+
+
+        camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
+        camera.position.set(0, 30, 30);
+
+
+        var   material = new THREE.LineBasicMaterial( { color: 0x000000,linewidth: 2 } );
+
+        var   geometry = new THREE.CircleGeometry( 5, 64 );
+
+        // Remove center vertex
+        geometry.vertices.shift();
+
+        geometry.rotateX(Math.PI/2);
+
+        // Non closed circle with one open segment:
+        var mesh1 = new THREE.LineLoop( geometry, material );
+
+        scene.add(mesh1);
+
+
+         var   geometry2 = new THREE.CircleGeometry( 3.3, 64 );
+
+                // Remove center vertex
+        geometry2.vertices.shift();
+
+                geometry2.rotateX(Math.PI/2);
+
+                var mesh2 = new THREE.LineLoop( geometry2, material );
+
+                mesh2.position.y = -3.3;
+                // Non closed circle with one open segment:
+                scene.add(mesh2);
+
+
+  var   geometry3 = new THREE.CircleGeometry( 1.6, 64 );
+                // Remove center vertex
+        geometry3.vertices.shift();
+
+                geometry3.rotateX(Math.PI/2);
+
+                var mesh3 = new THREE.LineLoop( geometry3, material );
+
+                mesh3.position.y = -6.7;
+                // Non closed circle with one open segment:
+                scene.add(mesh3);
+
+
+                  var   geometry4 = new THREE.CircleGeometry( 6.6, 64 );
+                                // Remove center vertex
+                        geometry4.vertices.shift();
+
+                                geometry4.rotateX(Math.PI/2);
+
+                                var mesh4 = new THREE.LineLoop( geometry4, material );
+
+                                mesh4.position.y = 3.3;
+                                // Non closed circle with one open segment:
+                                scene.add(mesh4);
+
+
+                                       var   geometry5 = new THREE.CircleGeometry( 8.3, 64 );
+                                                                // Remove center vertex
+                                                        geometry5.vertices.shift();
+
+                                                                geometry5.rotateX(Math.PI/2);
+
+                                                                var mesh5 = new THREE.LineLoop( geometry5, material );
+
+                                                                mesh5.position.y = 6.7;
+                                                                // Non closed circle with one open segment:
+                                                                scene.add(mesh5);
+
+
+                                                                        var   mate = new THREE.LineBasicMaterial( { color: 0x003C82,linewidth: 2 } );
+
+                                                                   var   geometry6 = new THREE.CircleGeometry( 1.6, 64 );
+                                                                                                                                            // Remove center vertex
+                                                                                                                                  geometry6.vertices.shift();
+
+                                                                                                                                            geometry6.rotateX(Math.PI/2);
+
+                                                                                                                                            var mesh6 = new THREE.LineLoop( geometry6, mate );
+
+                                                                                                                                            mesh6.position.y = -15.3;
+                                                                                                                                            // Non closed circle with one open segment:
+                                                                                                                                            scene.add(mesh6);
+	// var WIDTH = window.innerWidth;
+	// 		var HEIGHT = window.innerHeight;
+
+
+                                                                // var circleGeometry = new THREE.CircleBufferGeometry( 15, 64 );
+                                                                //         				var groundMirror = new THREE.Reflector( circleGeometry, {
+                                                                //         					clipBias: 0.03,
+                                                                //         					textureWidth: WIDTH * window.devicePixelRatio,
+                                                                //         					textureHeight: HEIGHT * window.devicePixelRatio,
+                                                                //         					color: 0x29B6F6,
+                                                                //         					recursion: 1
+                                                                //         				} );
+                                                                //         				groundMirror.position.y = -11;
+                                                                //         				groundMirror.rotateX( - Math.PI / 2 );
+                                                                //         				scene.add( groundMirror );
+
+
+        // let orth_size = 60;
+        // let orth = {};
+        // orth.left = window.innerWidth / -orth_size;
+        // orth.right = window.innerWidth / orth_size;
+        // orth.top = window.innerHeight / orth_size;
+        // orth.bottom = window.innerHeight / -orth_size;
+        // var orth_camera = new THREE.OrthographicCamera(orth.left, orth.right, orth.top, orth.bottom, -500, 1000);
+        // orth_camera.position.z = 300;
+
+        var camera_rendering = camera;
+        // var camera_rendering=orth_camera;
+
+        { // mesh
+            // var geometry = new THREE.TorusBufferGeometry( 6, 3, 16, 16 );
+            var geometry = new THREE.ConeBufferGeometry(10, 20, 45);
+            geometry.overdraw = true;
+            geometry.rotateX(Math.PI);
+
+            var material = new THREE.MeshBasicMaterial({
+                color: 0xffff00,
+                side: THREE.DoubleSide,
+            });
+            mesh = new THREE.Mesh(geometry, material);
+            // scene.add( mesh );
+
+            var geo_wireframe = new THREE.EdgesGeometry(geometry); // or WireframeGeometry
+            var mat_wireframe = new THREE.LineBasicMaterial({color: 0x000000, linewidth: 2});
+            var mesh_wireframe = new THREE.LineSegments(geo_wireframe, mat_wireframe);
+
+
+                        var mat_wireframe2 = new THREE.LineBasicMaterial({color: 0x003C82, linewidth: 2});
+
+            var mesh_wireframe2 = new THREE.LineSegments(geo_wireframe, mat_wireframe2);
+            mesh_wireframe2.rotateX(-Math.PI);
+
+            mesh_wireframe2.position.y = -22;
+
+            scene.add(mesh_wireframe);
+            scene.add(mesh_wireframe2);
+
+
+        }
+
+
+
+
+        { // points
+            var geo_points = new THREE.BufferGeometry();
+
+            var len = 100000;
+            var positions = [];
+            let mesh_size = 20;
+            let colors = [];
+            for (let i = 0; i < len; i++) {
+                let x = Math.random() * mesh_size - mesh_size / 2;
+                let y = Math.random() * mesh_size - mesh_size / 2;
+                let z = Math.random() * mesh_size - mesh_size / 2;
+
+                positions.push(x);
+                positions.push(y);
+                positions.push(z);
+
+                colors.push((x + mesh_size / 2) / mesh_size);
+                colors.push((y + mesh_size / 2) / mesh_size);
+                colors.push((z + mesh_size / 2) / mesh_size);
+                // colors.push(1);
+                // colors.push(0);
+                // colors.push(0);
+            }
+            geo_points.addAttribute('position', new THREE.BufferAttribute(new Float32Array(positions), 3));
+            geo_points.addAttribute('color', new THREE.BufferAttribute(new Float32Array(colors), 3));
+
+            var mtl_points = new THREE.PointsMaterial({
+                // color:0xff0000,
+                size: 0.3,
+                vertexColors: THREE.VertexColors,
+            });
+
+            var mesh_points = new THREE.Points(geo_points, mtl_points);
+            // scene.add(mesh_points);
+        }
+
+        // helper
+        // var helper={};
+        // helper.gridHelper = new THREE.GridHelper( 20 , 20 );
+        // scene.add( helper.gridHelper );
+
+        // helper.geometry_x = new THREE.BoxGeometry( 10 , 0.1 , 0.1 );
+        // helper.material_x = new THREE.MeshBasicMaterial( {color:'red'});
+        // helper.mesh_x=new THREE.Mesh(helper.geometry_x,helper.material_x);
+        // helper.mesh_x.position.x=5;
+        // scene.add(helper.mesh_x);
+
+        // helper.geometry_y = new THREE.BoxGeometry( .1 , 10 , 0.1 );
+        // helper.material_y = new THREE.MeshBasicMaterial( {color:'green'});
+        // helper.mesh_y=new THREE.Mesh(helper.geometry_y,helper.material_y);
+        // helper.mesh_y.position.y=5;
+        // scene.add(helper.mesh_y);
+
+        // helper.geometry_z = new THREE.BoxGeometry( .1 , .1 , 10 );
+        // helper.material_z = new THREE.MeshBasicMaterial( {color:'blue'});
+        // helper.mesh_z=new THREE.Mesh(helper.geometry_z,helper.material_z);
+        // helper.mesh_z.position.z=5;
+        // scene.add(helper.mesh_z);
+
+        renderer = new THREE.WebGLRenderer({
+               antialias:true//antialias:true/false是否开启反锯齿
+        });
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        var controls = new THREE.OrbitControls(camera_rendering, renderer.domElement);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.5;
+
+        controls.minPolarAngle = Math.PI/2.2;
+        controls.maxPolarAngle = Math.PI/2.2;
+
+
+
+        { // eliminate
+
+            raycaster = new THREE.Raycaster();
+            mouse = new THREE.Vector2();
+            geometry.computeBoundingBox();
+
+            for (let i = 0; i < len; i++) {
+                if (!geometry.boundingBox.containsPoint({
+                    x: positions[i * 3],
+                    y: positions[i * 3 + 1],
+                    z: positions[i * 3 + 2]
+                })) {
+                    geo_points.attributes.position.array[i * 3] = 0, geo_points.attributes.position.array[i * 3 + 1] = 0, geo_points.attributes.position.array[i * 3 + 2] = 0
+                }
+                else {
+                    raycaster.set({x: positions[i * 3], y: positions[i * 3 + 1], z: positions[i * 3 + 2]}, {
+                        x: 0,
+                        y: 0,
+                        z: -1
+                    });
+                    intersects = raycaster.intersectObject(mesh);
+                    if (intersects.length % 2 !== 1) {
+                        geo_points.attributes.position.array[i * 3] = 0, geo_points.attributes.position.array[i * 3 + 1] = 0, geo_points.attributes.position.array[i * 3 + 2] = 0
+                    }
+                }
+            }
+            geo_points.attributes.position.needsUpdate = true;
+        }
+
+
+        window.addEventListener('resize', onWindowResize, false);
+
+    }
+
+    animate();
+
+    function onWindowResize() {
+
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+
+        renderer.setSize(window.innerWidth, window.innerHeight);
+
+    }
+
+    function animate() {
+
+        requestAnimationFrame(animate);
+
+        render();
+
+        controls.update();
+        // stats.update();
+
+    }
+
+    function render() {
+
+        renderer.render(scene, camera_rendering);
+
+    }
+
 </script>
-<script src="js/blueimp-helper.js"></script>
-<script src="js/blueimp-gallery.js"></script>
-<script src="js/blueimp-gallery-indicator.js"></script>
-<script src="js/blueimp-gallery-vimeo.js"></script>
-<script src="js/blueimp-gallery-youtube.js"></script>
-<script src="js/vendor/jquery.js"></script>
-<script src="js/jquery.blueimp-gallery.js"></script>
-<script src="js/demo/demo.js"></script>
 
 </body>
 
