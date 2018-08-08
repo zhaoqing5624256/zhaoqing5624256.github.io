@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>whether_point_in_3d_model</title>
+    <title>Tapered</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
     <style type="text/css">
@@ -34,109 +34,109 @@
 
 
         scene = new THREE.Scene();
-        scene.background = new THREE.Color( 0x1478FA);
+        scene.background = new THREE.Color(0x1478FA);
 
 
         camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
         camera.position.set(0, 30, 30);
 
 
-        var   material = new THREE.LineBasicMaterial( { color: 0x000000,linewidth: 2 } );
+        var material = new THREE.LineBasicMaterial({color: 0x000000, linewidth: 2});
 
-        var   geometry = new THREE.CircleGeometry( 5, 64 );
+        var geometry = new THREE.CircleGeometry(5, 64);
 
         // Remove center vertex
         geometry.vertices.shift();
 
-        geometry.rotateX(Math.PI/2);
+        geometry.rotateX(Math.PI / 2);
 
         // Non closed circle with one open segment:
-        var mesh1 = new THREE.LineLoop( geometry, material );
+        var mesh1 = new THREE.LineLoop(geometry, material);
 
         scene.add(mesh1);
 
 
-         var   geometry2 = new THREE.CircleGeometry( 3.3, 64 );
+        var geometry2 = new THREE.CircleGeometry(3.3, 64);
 
-                // Remove center vertex
+        // Remove center vertex
         geometry2.vertices.shift();
 
-                geometry2.rotateX(Math.PI/2);
+        geometry2.rotateX(Math.PI / 2);
 
-                var mesh2 = new THREE.LineLoop( geometry2, material );
+        var mesh2 = new THREE.LineLoop(geometry2, material);
 
-                mesh2.position.y = -3.3;
-                // Non closed circle with one open segment:
-                scene.add(mesh2);
+        mesh2.position.y = -3.3;
+        // Non closed circle with one open segment:
+        scene.add(mesh2);
 
 
-  var   geometry3 = new THREE.CircleGeometry( 1.6, 64 );
-                // Remove center vertex
+        var geometry3 = new THREE.CircleGeometry(1.6, 64);
+        // Remove center vertex
         geometry3.vertices.shift();
 
-                geometry3.rotateX(Math.PI/2);
+        geometry3.rotateX(Math.PI / 2);
 
-                var mesh3 = new THREE.LineLoop( geometry3, material );
+        var mesh3 = new THREE.LineLoop(geometry3, material);
 
-                mesh3.position.y = -6.7;
-                // Non closed circle with one open segment:
-                scene.add(mesh3);
-
-
-                  var   geometry4 = new THREE.CircleGeometry( 6.6, 64 );
-                                // Remove center vertex
-                        geometry4.vertices.shift();
-
-                                geometry4.rotateX(Math.PI/2);
-
-                                var mesh4 = new THREE.LineLoop( geometry4, material );
-
-                                mesh4.position.y = 3.3;
-                                // Non closed circle with one open segment:
-                                scene.add(mesh4);
+        mesh3.position.y = -6.7;
+        // Non closed circle with one open segment:
+        scene.add(mesh3);
 
 
-                                       var   geometry5 = new THREE.CircleGeometry( 8.3, 64 );
-                                                                // Remove center vertex
-                                                        geometry5.vertices.shift();
+        var geometry4 = new THREE.CircleGeometry(6.6, 64);
+        // Remove center vertex
+        geometry4.vertices.shift();
 
-                                                                geometry5.rotateX(Math.PI/2);
+        geometry4.rotateX(Math.PI / 2);
 
-                                                                var mesh5 = new THREE.LineLoop( geometry5, material );
+        var mesh4 = new THREE.LineLoop(geometry4, material);
 
-                                                                mesh5.position.y = 6.7;
-                                                                // Non closed circle with one open segment:
-                                                                scene.add(mesh5);
-
-
-                                                                        var   mate = new THREE.LineBasicMaterial( { color: 0x003C82,linewidth: 2 } );
-
-                                                                   var   geometry6 = new THREE.CircleGeometry( 1.6, 64 );
-                                                                                                                                            // Remove center vertex
-                                                                                                                                  geometry6.vertices.shift();
-
-                                                                                                                                            geometry6.rotateX(Math.PI/2);
-
-                                                                                                                                            var mesh6 = new THREE.LineLoop( geometry6, mate );
-
-                                                                                                                                            mesh6.position.y = -15.3;
-                                                                                                                                            // Non closed circle with one open segment:
-                                                                                                                                            scene.add(mesh6);
-	// var WIDTH = window.innerWidth;
-	// 		var HEIGHT = window.innerHeight;
+        mesh4.position.y = 3.3;
+        // Non closed circle with one open segment:
+        scene.add(mesh4);
 
 
-                                                                // var circleGeometry = new THREE.CircleBufferGeometry( 15, 64 );
-                                                                //         				var groundMirror = new THREE.Reflector( circleGeometry, {
-                                                                //         					clipBias: 0.03,
-                                                                //         					textureWidth: WIDTH * window.devicePixelRatio,
-                                                                //         					textureHeight: HEIGHT * window.devicePixelRatio,
-                                                                //         					color: 0x29B6F6,
-                                                                //         					recursion: 1
-                                                                //         				} );
-                                                                //         				groundMirror.position.y = -11;
-                                                                //         				groundMirror.rotateX( - Math.PI / 2 );
-                                                                //         				scene.add( groundMirror );
+        var geometry5 = new THREE.CircleGeometry(8.3, 64);
+        // Remove center vertex
+        geometry5.vertices.shift();
+
+        geometry5.rotateX(Math.PI / 2);
+
+        var mesh5 = new THREE.LineLoop(geometry5, material);
+
+        mesh5.position.y = 6.7;
+        // Non closed circle with one open segment:
+        scene.add(mesh5);
+
+
+        var mate = new THREE.LineBasicMaterial({color: 0x003C82, linewidth: 2});
+
+        var geometry6 = new THREE.CircleGeometry(1.6, 64);
+        // Remove center vertex
+        geometry6.vertices.shift();
+
+        geometry6.rotateX(Math.PI / 2);
+
+        var mesh6 = new THREE.LineLoop(geometry6, mate);
+
+        mesh6.position.y = -15.3;
+        // Non closed circle with one open segment:
+        scene.add(mesh6);
+        // var WIDTH = window.innerWidth;
+        // 		var HEIGHT = window.innerHeight;
+
+
+        // var circleGeometry = new THREE.CircleBufferGeometry( 15, 64 );
+        //         				var groundMirror = new THREE.Reflector( circleGeometry, {
+        //         					clipBias: 0.03,
+        //         					textureWidth: WIDTH * window.devicePixelRatio,
+        //         					textureHeight: HEIGHT * window.devicePixelRatio,
+        //         					color: 0x29B6F6,
+        //         					recursion: 1
+        //         				} );
+        //         				groundMirror.position.y = -11;
+        //         				groundMirror.rotateX( - Math.PI / 2 );
+        //         				scene.add( groundMirror );
 
 
         // let orth_size = 60;
@@ -169,7 +169,7 @@
             var mesh_wireframe = new THREE.LineSegments(geo_wireframe, mat_wireframe);
 
 
-                        var mat_wireframe2 = new THREE.LineBasicMaterial({color: 0x003C82, linewidth: 2});
+            var mat_wireframe2 = new THREE.LineBasicMaterial({color: 0x003C82, linewidth: 2});
 
             var mesh_wireframe2 = new THREE.LineSegments(geo_wireframe, mat_wireframe2);
             mesh_wireframe2.rotateX(-Math.PI);
@@ -181,8 +181,6 @@
 
 
         }
-
-
 
 
         { // points
@@ -245,7 +243,7 @@
         // scene.add(helper.mesh_z);
 
         renderer = new THREE.WebGLRenderer({
-               antialias:true//antialias:true/false是否开启反锯齿
+            antialias: true//antialias:true/false是否开启反锯齿
         });
         renderer.setPixelRatio(window.devicePixelRatio);
         renderer.setSize(window.innerWidth, window.innerHeight);
@@ -255,9 +253,8 @@
         controls.enableDamping = true;
         controls.dampingFactor = 0.5;
 
-        controls.minPolarAngle = Math.PI/2.2;
-        controls.maxPolarAngle = Math.PI/2.2;
-
+        controls.minPolarAngle = Math.PI / 2.2;
+        controls.maxPolarAngle = Math.PI / 2.2;
 
 
         { // eliminate
